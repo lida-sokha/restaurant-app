@@ -19,6 +19,7 @@ OrderItem.belongsTo(Order, { foreignKey: 'order_id' });
 MenuItem.hasMany(OrderItem, { foreignKey: 'item_id' });
 OrderItem.belongsTo(MenuItem, { foreignKey: 'item_id' });
 
+
 module.exports = {
   sequelize,
   User,

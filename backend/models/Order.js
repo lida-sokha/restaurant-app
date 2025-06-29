@@ -1,23 +1,34 @@
+// models/Order.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
-const User = require('./User');
 
 const Order = sequelize.define('Order', {
-  order_id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
-  total_amount: { type: DataTypes.DECIMAL(10, 2), allowNull: false },
-  status: {
-    type: DataTypes.ENUM('pending', 'processing', 'completed', 'cancelled'),
-    defaultValue: 'pending'
+  order_id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
   },
-  delivery_address: { type: DataTypes.TEXT }
+  user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: true, // In-house orders might not be tied to a logged-in user
+  },
+  table_number: {
+    type: DataTypes.INTEGER,
+    allowNull: true, // Optional for in-house ordering
+  },
+  order_time: {
+    type: DataTypes.DATE,
+    defaultValue: DataTypes.NOW,
+  },
+  status: {
+    type: DataTypes.ENUM('pending', 'preparing', 'served', 'completed', 'cancelled'),
+    defaultValue: 'pending',
+  },
 }, {
   tableName: 'orders',
   timestamps: true,
-  createdAt: 'order_date',
-  updatedAt: false
+  createdAt: 'created_at',
+  updatedAt: 'updated_at',
 });
-
-Order.belongsTo(User, { foreignKey: 'user_id', onDelete: 'CASCADE' });
-User.hasMany(Order, { foreignKey: 'user_id' });
 
 module.exports = Order;
