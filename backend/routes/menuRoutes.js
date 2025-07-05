@@ -1,23 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const {
-  getAllMenuItems,
-  getMenuItemById,
-  createMenuItem,
-  updateMenuItem,
-  deleteMenuItem
-} = require('../controllers/menuController');
+const { Menu } = require('../models');
 
-const auth = require('../middleware/authMiddleware');
-const isAdmin = require('../middleware/roleMiddleware');
-
-// Public routes
-router.get('/', getAllMenuItems);
-router.get('/:id', getMenuItemById);
-
-// Admin-only routes
-router.post('/', auth, isAdmin, createMenuItem);
-router.put('/:id', auth, isAdmin, updateMenuItem);
-router.delete('/:id', auth, isAdmin, deleteMenuItem);
+// GET all menu items
+router.get('/', async (req, res) => {
+  try {
+    const items = await Menu.findAll();
+    res.json(items);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to fetch menu' });
+  }
+});
 
 module.exports = router;
