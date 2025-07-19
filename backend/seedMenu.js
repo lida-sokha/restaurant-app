@@ -31,7 +31,7 @@ async function seedMenu() {
         description: 'Our classic pizza with spicy pepperoni, mozzarella, and a rich tomato sauce.',
         price: 16.75,
         category: 'Pizza',
-        image_url: 'https://example.com/images/pepperoni_pizza.jpg',
+        image_url: '/image/Spicy Pepperoni Pizza.jpeg',
         is_available: true,
       },
       {
@@ -59,11 +59,11 @@ async function seedMenu() {
         is_available: true,
       },
       {
-        name: 'Vegetable Spring Rolls',
-        description: 'Crispy spring rolls filled with mixed vegetables, served with sweet chili sauce.',
-        price: 9.00,
+        name: 'Watermelon Feta',
+        description: 'Refreshing watermelon cubes topped with feta cheese, mint, and a drizzle of balsamic glaze.',
+        price: 5.00,
         category: 'Appetizer & Salads',
-        image_url: 'https://example.com/images/spring_rolls.jpg',
+        image_url: '/image/Watermelon Feta.jpg',
         is_available: true,
       },
       {
@@ -71,7 +71,7 @@ async function seedMenu() {
         description: 'Tender BBQ chicken, red onions, cilantro, and mozzarella on a smoky BBQ base.',
         price: 18.25,
         category: 'Pizza',
-        image_url: 'https://example.com/images/bbq_chicken_pizza.jpg',
+        image_url: '/image/BBQ Chicken Pizza.jpg',
         is_available: true,
       },
       {
@@ -98,6 +98,38 @@ async function seedMenu() {
         image_url: 'https://example.com/images/mushroom_risotto.jpg',
         is_available: true,
       },
+      {
+        name: 'ROAST BEEF SALAD',
+        description: 'Tender slices of roast beef on a bed of mixed greens with balsamic vinaigrette.',
+        price: 12.00,
+        category: 'Appetizer & Salads',
+        image_url: '/image/beef-salad.jpg',
+        is_available: true,
+      },
+      {
+        name:'French Onion Dip Cups',
+        description:'hese tasty little cups are packed with warm, creamy and cheesy onion dip. ',
+        price: 5.00,
+        category:'Appetizer & Salads',
+        image_url:'/image/French Onion Dip Cups.jpg',
+        is_available: true,
+      },
+      {
+        name:'TItalian Panzanella Salad',
+        description:'Grated tomato adds a gentle acidity and chunky texture to the vinaigrette, helping it cling to every bite. ',
+        price: 8.00,
+        category:'Appetizer & Salads',
+        image_url:'/image/Italian Panzanella Sallad.jpg',
+        is_available: true,
+      },
+      {
+        name:'Burrata Caprese',
+        description:'This burrata Caprese elevates the classic Caprese salad with creamy burrata, fresh basil, and olive oil. A must-try Italian salad!.',
+        price: 8.80,
+        category:'Appetizer & Salads',
+        image_url:'/image/burrata-caprese.jpg',
+        is_available: true,
+      }
     ];
 
     // 3. Insert the data
