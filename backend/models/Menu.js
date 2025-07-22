@@ -1,6 +1,6 @@
 // models/menu.js
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('Menu', {
+  return sequelize.define('menu', {
     item_id: {
       type: DataTypes.INTEGER,
       primaryKey: true,

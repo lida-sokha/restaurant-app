@@ -22,7 +22,7 @@ const sequelize = new Sequelize(
 );
 
 // Import your Menu model (and others if needed)
-const Menu = require('./menu')(sequelize, DataTypes);
+const Menu = require('./Menu')(sequelize, DataTypes);
 
 // Test the DB connection immediately
 sequelize.authenticate()
