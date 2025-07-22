@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const { Menu } = require('../models');
+const db = require('../models');
 
-// GET all menu items
+// GET /api/menu
 router.get('/', async (req, res) => {
   try {
-    const items = await Menu.findAll();
-    res.json(items);
+    const menuItems = await db.Menu.findAll();
+    res.json(menuItems);
   } catch (error) {
-    res.status(500).json({ error: 'Failed to fetch menu' });
+    console.error('Error fetching menu:', error);
+    res.status(500).json({ error: 'Failed to fetch menu items' });
   }
 });
 

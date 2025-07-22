@@ -1,19 +1,24 @@
 // models/menu.js
 module.exports = (sequelize, DataTypes) => {
-  const Menu = sequelize.define('Menu', {
+  return sequelize.define('Menu', {
+    item_id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
+    description: DataTypes.STRING,
     price: {
-      type: DataTypes.FLOAT,
-      allowNull: false
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
     },
-    description: {
-      type: DataTypes.STRING,
-      allowNull: true
-    }
+    category: DataTypes.STRING,
+    image_url: DataTypes.STRING,
+  }, {
+    tableName: 'menu', // Match the table name in your DB
+    timestamps: false  // Disable createdAt/updatedAt if not used
   });
-
-  return Menu;
 };
