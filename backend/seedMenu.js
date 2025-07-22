@@ -35,11 +35,19 @@ async function seedMenu() {
         is_available: true,
       },
       {
+        name:'Capricciosa Pizza',
+        description:'A classic Italian pizza topped with artichokes, mushrooms, ham, and olives.',
+        price: 17.50,
+        category: 'Pizza',
+        image_url: '/image/capricciosa_pizza.jpg',
+        is_available: true,
+      },
+      {
         name: 'Homemade Tiramisu',
         description: 'Layers of coffee-soaked ladyfingers, mascarpone cheese, and cocoa powder.',
         price: 7.25,
         category: 'Dessert',
-        image_url: 'https://example.com/images/tiramisu.jpg',
+        image_url: '/image/Homemade Tiramisu.jpg',
         is_available: true,
       },
       {
@@ -47,15 +55,15 @@ async function seedMenu() {
         description: 'Freshly squeezed orange juice, a perfect start to your day.',
         price: 4.00,
         category: 'Drinks/Alcohol',
-        image_url: 'https://example.com/images/orange_juice.jpg',
+        image_url: '/image/Fresh Orange Juice.jpg',
         is_available: true,
       },
       {
         name: 'Grilled Salmon Fillet',
         description: 'Pan-seared salmon served with roasted asparagus and lemon-dill sauce.',
-        price: 22.00,
+        price: 15.00,
         category: 'Main Course',
-        image_url: 'https://example.com/images/grilled_salmon.jpg',
+        image_url: '/image/Grilled Salmon Fillet.jpg',
         is_available: true,
       },
       {
@@ -79,7 +87,7 @@ async function seedMenu() {
         description: 'Classic creamy cheesecake with a graham cracker crust, topped with berry compote.',
         price: 7.75,
         category: 'Dessert',
-        image_url: 'https://example.com/images/cheesecake.jpg',
+        image_url: '/image/New York Cheesecake.jpg',
         is_available: true,
       },
       {
@@ -87,7 +95,7 @@ async function seedMenu() {
         description: 'Rotating selection of local craft beers. Ask your server for today\'s tap list.',
         price: 7.50,
         category: 'Drinks/Alcohol',
-        image_url: 'https://example.com/images/craft_beer.jpg',
+        image_url: '/image/Craft Beer Selection (Pint).jpg',
         is_available: true,
       },
       {
@@ -95,7 +103,7 @@ async function seedMenu() {
         description: 'Creamy Arborio rice cooked with wild mushrooms, Parmesan, and truffle oil.',
         price: 19.50,
         category: 'Main Course',
-        image_url: 'https://example.com/images/mushroom_risotto.jpg',
+        image_url: '/image/Mushroom Risotto.jpg',
         is_available: true,
       },
       {
