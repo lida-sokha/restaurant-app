@@ -1,6 +1,9 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Home() {
+  const navigate = useNavigate();
   return (
     <section className="w-full overflow-hidden">
       {/* Hero Section with Background Image */}
@@ -51,7 +54,7 @@ export default function Home() {
     onChange={(e) => {
       const selected = e.target.value;
       if (selected) {
-        window.location.href = `/branches/${selected}`;
+       navigate(`/branches/${selected}`); // Adjust the path as needed
         // or use: navigate(`/branches/${selected}`) if using React Router
       }
     }}

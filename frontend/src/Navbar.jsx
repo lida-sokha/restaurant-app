@@ -9,7 +9,7 @@ const Navbar = () => {
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Menu', path: '/menu' },
-    { name: 'Reservation', path: '/reservation' },
+    { name: 'Reservation', path: '/Reserve' },
     { name: 'About us', path: '/about' },
   ];
 
@@ -17,9 +17,10 @@ const Navbar = () => {
   let navbarBgClass = '';
   if (location.pathname === '/') {
     navbarBgClass = 'bg-transparent'; // Clear background for Home page
-  } else if (location.pathname === '/menu') {
+  } else if (location.pathname === '/menu' ) {
     navbarBgClass = 'text-white'; // Blue background for Menu page
-  } else {
+  }
+   else {
     navbarBgClass = 'bg-gray-800'; // Gray background for all other pages
   }
 
