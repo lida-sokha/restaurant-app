@@ -162,6 +162,22 @@ async function seedMenu() {
         image_url: '/image/Chicken.jpg',
         is_available: true,
       },
+       {
+        name: 'Lava Cake',
+        description: 'A rich, warm chocolate cake with a gooey, molten center that flows out with every bite.',
+        price: 3.50,
+        category: 'Dessert',
+        image_url: '/image/lava.jpg',
+        is_available: true,
+      },
+      {
+        name: 'Black Forest',
+        description: 'A decadent chocolate cake layered with whipped cream and cherry filling, topped with sweet cherries and chocolate shavings for a rich, fruity finish.',
+        price: 5.00,
+        category: 'Dessert',
+        image_url: '/image/Black Forest.jpg',
+        is_available: true,
+      },
       {
         name:'Tropical Seafood',
         description:'Taste the tropics with every bite—our Tropical Seafood blends juicy citrus, herbs, and the freshest catch.',
