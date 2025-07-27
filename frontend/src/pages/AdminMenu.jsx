@@ -134,13 +134,12 @@ export default function AdminMenu() {
   const fetchMenuItems = async () => {
     setLoading(true);
     setError(null);
-
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 8000);
 
       const response = await fetch(`${API_URL}/api/menu`, {
-        signal: controller.signal
+        signal: controller.signal,
       });
 
       clearTimeout(timeoutId);
@@ -161,29 +160,32 @@ export default function AdminMenu() {
 
   const getQuantity = (item) => {
     const key = item.item_id || item.id || item.name;
-    const found = cartItems.find(ci => {
+    const found = cartItems.find((ci) => {
       const ciKey = ci.item_id || ci.id || ci.name;
       return ciKey === key;
     });
     return found ? found.quantity : 0;
   };
 
-  const renderMenuItem = useMemo(() => (item) => {
-    const key = item.item_id || item.id || item.name;
-    const quantity = getQuantity(item);
+  const renderMenuItem = useMemo(
+    () => (item) => {
+      const key = item.item_id || item.id || item.name;
+      const quantity = getQuantity(item);
 
-    return (
-      <MenuItemCard
-        key={key}
-        item={item}
-        quantity={quantity}
-        onIncrement={() => addToCart(item)}
-        onDecrement={() => {
-          if (quantity > 0) updateQuantity(item, quantity - 1);
-        }}
-      />
-    );
-  }, [cartItems, addToCart, updateQuantity]);
+      return (
+        <MenuItemCard
+          key={key}
+          item={item}
+          quantity={quantity}
+          onIncrement={() => addToCart(item)}
+          onDecrement={() => {
+            if (quantity > 0) updateQuantity(item, quantity - 1);
+          }}
+        />
+      );
+    },
+    [cartItems, addToCart, updateQuantity]
+  );
 
   const groupedMenu = useMemo(() => {
     return menuItems.reduce((acc, item) => {
@@ -194,7 +196,7 @@ export default function AdminMenu() {
     }, {});
   }, [menuItems]);
 
-  // Calculate total quantity in cart for badge
+  // Total quantity for cart badge
   const totalCartQuantity = cartItems.reduce((sum, ci) => sum + ci.quantity, 0);
 
   if (loading && showLoading) return <LoadingSpinner />;
@@ -216,7 +218,11 @@ export default function AdminMenu() {
           stroke="currentColor"
           strokeWidth={2}
         >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 7M7 13l-2 4h13M16 17a2 2 0 11-4 0 2 2 0 014 0z" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 7M7 13l-2 4h13M16 17a2 2 0 11-4 0 2 2 0 014 0z"
+          />
         </svg>
         {totalCartQuantity > 0 && (
           <span className="absolute -top-1 -right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
@@ -259,24 +265,24 @@ MenuItemCard.propTypes = {
     description: PropTypes.string,
     price: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     category: PropTypes.string,
-    image_url: PropTypes.string
+    image_url: PropTypes.string,
   }).isRequired,
   quantity: PropTypes.number.isRequired,
   onIncrement: PropTypes.func.isRequired,
-  onDecrement: PropTypes.func.isRequired
+  onDecrement: PropTypes.func.isRequired,
 };
 
 ErrorMessage.propTypes = {
   error: PropTypes.string.isRequired,
-  onRetry: PropTypes.func.isRequired
+  onRetry: PropTypes.func.isRequired,
 };
 
 EmptyMenuState.propTypes = {
-  onRefresh: PropTypes.func.isRequired
+  onRefresh: PropTypes.func.isRequired,
 };
 
 MenuSection.propTypes = {
   categoryName: PropTypes.string.isRequired,
   items: PropTypes.array.isRequired,
-  renderItem: PropTypes.func.isRequired
+  renderItem: PropTypes.func.isRequired,
 };
