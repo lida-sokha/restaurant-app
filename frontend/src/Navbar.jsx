@@ -59,7 +59,7 @@ const Navbar = () => {
           </ul>
 
           {/* Profile Icon - its color will also change */}
-          <a href="/profile" className="ml-4">
+          <a href="/Login" className="ml-4">
             <User className={`w-6 h-6 hover:text-blue-500 transition ${navLinkTextColorClass}`} />
           </a>
         </div>

@@ -1,4 +1,3 @@
-// models/index.js
 const { Sequelize, DataTypes } = require('sequelize');
 require('dotenv').config();
 
@@ -14,16 +13,17 @@ const sequelize = new Sequelize(
     dialectOptions: {
       ssl: {
         require: true,
-        rejectUnauthorized: false // Required for Railway to accept self-signed certs
+        rejectUnauthorized: false
       }
     },
-    logging: false, // Set to true if you want to see raw SQL logs
+    logging: false,
   }
 );
 
-// Import your Menu model (and others if needed)
+// Import all models
 const Menu = require('./Menu')(sequelize, DataTypes);
-
+const User = require('./User')(sequelize, DataTypes); // Add this line
+const Reservation = require('./reservation')(sequelize, DataTypes);
 // Test the DB connection immediately
 sequelize.authenticate()
   .then(() => console.log('✅ Connected to Railway MySQL'))
@@ -32,5 +32,7 @@ sequelize.authenticate()
 // Export all models and sequelize instance
 module.exports = {
   sequelize,
-  Menu
+  Menu,
+  User,
+  Reservation // Add this export
 };

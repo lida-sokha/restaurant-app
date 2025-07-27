@@ -4,14 +4,16 @@ const cors = require('cors');
 const { Sequelize } = require('sequelize');
 const db = require('./models');
 const menuRouter = require('./routes/menuRoutes');
-
+const authRoutes = require('./routes/authRoutes');
+const reservationRoutes = require('./routes/reservationRoutes');
+const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // ==================== CORS Setup ====================
 app.use(cors({
   origin: [process.env.FRONTEND_URL || 'http://localhost:5173'],
-  credentials: true
+  credentials: true,
 }));
 
 // ==================== Middleware ====================
@@ -19,6 +21,12 @@ app.use(express.json());
 
 // ==================== API Routes ====================
 app.use('/api/menu', menuRouter); // use imported router
+
+app.use('/api', authRoutes); // use auth routes
+
+app.use('/api/reservations', reservationRoutes); // use reservation routes
+
+app.use(cookieParser());
 
 // ==================== Sequelize Setup ====================
 const sequelize = new Sequelize(
@@ -43,10 +51,10 @@ const sequelize = new Sequelize(
 const testConnection = async () => {
   try {
     await sequelize.authenticate();
-    console.log('✅ Connected to DB:', sequelize.config.host);
+    console.log('Connected to DB:', sequelize.config.host);
     return true;
   } catch (err) {
-    console.error('❌ DB connection failed:', err.message);
+    console.error(' DB connection failed:', err.message);
     return false;
   }
 };
@@ -61,7 +69,7 @@ app.get('/health', async (req, res) => {
 
 // ==================== Welcome Route ====================
 app.get('/', (req, res) => {
-  res.send('🚀 Welcome to the Restaurant Backend API');
+  res.send('Welcome to the Restaurant Backend API');
 });
 
 // ==================== Server Boot ====================
@@ -70,12 +78,12 @@ testConnection().then(success => {
     db.sequelize.sync({ alter: process.env.NODE_ENV === 'development' })
       .then(() => {
         app.listen(PORT, () => {
-          console.log(`🚀 Server running at http://localhost:${PORT}`);
+          console.log(`Server running at http://localhost:${PORT}`);
         });
       })
-      .catch(err => console.error('❌ Sequelize sync error:', err));
+      .catch(err => console.error('Sequelize sync error:', err));
   } else {
-    console.error('⛔ Could not start server. DB not connected.');
+    console.error('Could not start server. DB not connected.');
     process.exit(1);
   }
 });
