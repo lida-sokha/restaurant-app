@@ -5,13 +5,17 @@ export const CartContext = createContext();
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
 
+  // Helper to get unique key for an item
+  const getKey = (item) => item.item_id ?? item.id ?? item.name;
+
   const addToCart = (item) => {
+    const key = getKey(item);
     setCartItems(prevCart => {
-      const existingItem = prevCart.find(ci => ci.item_id === item.item_id);
+      const existingItem = prevCart.find(ci => getKey(ci) === key);
 
       if (existingItem) {
         return prevCart.map(ci =>
-          ci.item_id === item.item_id
+          getKey(ci) === key
             ? { ...ci, quantity: ci.quantity + 1 }
             : ci
         );
@@ -22,18 +26,22 @@ export const CartProvider = ({ children }) => {
   };
 
   const updateQuantity = (item, quantity) => {
+    const key = getKey(item);
     setCartItems(prevCart =>
-      prevCart.map(ci =>
-        ci.item_id === item.item_id
-          ? { ...ci, quantity }
-          : ci
-      ).filter(ci => ci.quantity > 0)
+      prevCart
+        .map(ci =>
+          getKey(ci) === key
+            ? { ...ci, quantity }
+            : ci
+        )
+        .filter(ci => ci.quantity > 0)
     );
   };
 
   const removeFromCart = (item) => {
+    const key = getKey(item);
     setCartItems(prevCart =>
-      prevCart.filter(ci => ci.item_id !== item.item_id)
+      prevCart.filter(ci => getKey(ci) !== key)
     );
   };
 
