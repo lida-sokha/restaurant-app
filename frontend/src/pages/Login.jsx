@@ -45,7 +45,7 @@ const handleLogin = async (e) => {
     if (response.data.user.is_admin) {
       navigate('/adminDashboard', { replace: true });
     } else {
-      navigate('/', { replace: true }); // normal user landing page
+      navigate('/admin/dashboard', { replace: true }); // normal user landing page
     }
   } catch (error) {
     // error handling (same as before)
