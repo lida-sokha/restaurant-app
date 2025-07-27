@@ -1,8 +1,8 @@
-import React from 'react';
-import { useCart } from '../Context/CartContext';
+import React, { useContext } from 'react';
+import { CartContext } from '../Context/CartContext';
 
 export default function Cart() {
-  const { cart, addToCart, removeFromCart, clearCart } = useCart();
+  const { cart, addToCart, removeFromCart, clearCart } = useContext(CartContext);
 
   const cartItems = Object.values(cart);
 
@@ -20,7 +20,10 @@ export default function Cart() {
       <h1 className="text-4xl font-bold mb-6">Your Cart</h1>
       <ul className="space-y-4">
         {cartItems.map(({ item, quantity }) => (
-          <li key={item.item_id || item.id || item.name} className="flex justify-between items-center border p-4 rounded">
+          <li
+            key={item.item_id || item.id || item.name}
+            className="flex justify-between items-center border p-4 rounded"
+          >
             <div>
               <h2 className="font-semibold text-lg">{item.name}</h2>
               <p>Price: ${Number(item.price).toFixed(2)}</p>

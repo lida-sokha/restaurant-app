@@ -1,47 +1,38 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useState } from 'react';
 
-const CartContext = createContext();
-
-export function useCart() {
-  return useContext(CartContext);
-}
+export const CartContext = createContext();
 
 export function CartProvider({ children }) {
-  const [cart, setCart] = useState({}); 
-  // cart shape: { key: { item, quantity } }
+  const [cartItems, setCartItems] = useState([]);
 
   const addToCart = (item) => {
-    const key = item.item_id || item.id || item.name;
-    setCart(prev => ({
-      ...prev,
-      [key]: {
-        item,
-        quantity: prev[key] ? prev[key].quantity + 1 : 1
+    setCartItems(prev => {
+      const existing = prev.find(i => i.id === item.id);
+      if (existing) {
+        return prev.map(i =>
+          i.id === item.id ? { ...i, quantity: i.quantity + 1 } : i
+        );
       }
-    }));
-  };
-
-  const removeFromCart = (item) => {
-    const key = item.item_id || item.id || item.name;
-    setCart(prev => {
-      if (!prev[key]) return prev;
-      const newQty = prev[key].quantity - 1;
-      if (newQty <= 0) {
-        const newCart = { ...prev };
-        delete newCart[key];
-        return newCart;
-      }
-      return {
-        ...prev,
-        [key]: { item, quantity: newQty }
-      };
+      return [...prev, { ...item, quantity: 1 }];
     });
   };
 
-  const clearCart = () => setCart({});
+  const updateQuantity = (item, quantity) => {
+    setCartItems(prev =>
+      quantity > 0
+        ? prev.map(i =>
+            i.id === item.id ? { ...i, quantity } : i
+          )
+        : prev.filter(i => i.id !== item.id)
+    );
+  };
+
+  const removeFromCart = (item) => {
+    setCartItems(prev => prev.filter(i => i.id !== item.id));
+  };
 
   return (
-    <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
+    <CartContext.Provider value={{ cartItems, addToCart, updateQuantity, removeFromCart }}>
       {children}
     </CartContext.Provider>
   );

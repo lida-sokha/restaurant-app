@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
-import { CartContext } from './Context/CartContext';
+import { CartContext } from '../Context/CartContext';
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://menu-app.up.railway.app';
 
