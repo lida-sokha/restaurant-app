@@ -21,12 +21,12 @@ const handleLogin = async (e) => {
   try {
     const response = await axios.post(
       'http://localhost:5000/api/login',
-      { 
+      {
         email: email.trim(),
         password: password
       },
       {
-        headers: { 
+        headers: {
           'Content-Type': 'application/json',
           'Accept': 'application/json'
         },
@@ -41,20 +41,27 @@ const handleLogin = async (e) => {
 
     localStorage.setItem('token', response.data.token);
 
-    // Check if user is admin and navigate accordingly
-    if (response.data.user.is_admin) {
-      navigate('/adminDashboard', { replace: true });
-    } else {
-      navigate('/admin/dashboard', { replace: true }); // normal user landing page
-    }
+    // ✅ Extract user from response
+    const user = response.data.user;
+
+    // ✅ Check if the user is an admin
+    if (user.is_admin === true || user.is_admin === 1 || user.is_admin === "1") {
+  navigate('/admin/dashboard', { replace: true });
+}
+
+   else {
+  navigate('/', { replace: true });
+}
+
+
   } catch (error) {
-    // error handling (same as before)
     console.error('Login error details:', error);
     setError('Login failed: ' + (error.response?.data?.message || error.message));
   } finally {
     setLoading(false);
   }
 };
+
 
 
   return (

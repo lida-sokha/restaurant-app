@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     is_admin: {
       type: DataTypes.BOOLEAN,
-      defaultValue: false   // users are not admins by default
+      defaultValue: false  // users are not admins by default
     },
     created_at: {
       type: DataTypes.DATE,
