@@ -1,33 +1,22 @@
+// middleware/authenticateToken.js
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = process.env.JWT_SECRET || 'your_secret_key';
 
-const authenticateToken = (req, res, next) => {
-  // Try getting token from header Authorization Bearer
-  let token = null;
+module.exports = (req, res, next) => {
   const authHeader = req.headers['authorization'];
-  if (authHeader && authHeader.startsWith('Bearer ')) {
-    token = authHeader.split(' ')[1];
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ message: 'No token provided' });
   }
 
-  // If not in header, try getting from cookie
-  if (!token && req.cookies) {
-    token = req.cookies.token;
-  }
+  const token = authHeader.split(' ')[1];
 
-  if (!token) {
-    return res.status(403).json({ message: 'No token provided' });
-  }
+  jwt.verify(token, JWT_SECRET, (err, decoded) => {
+    if (err) {
+      return res.status(403).json({ message: 'Invalid token' });
+    }
 
-  try {
-    const decoded = jwt.verify(token, JWT_SECRET);
-    req.user = {
-      userId: decoded.userId,
-      email: decoded.email,
-    };
+    req.user = decoded;
     next();
-  } catch (err) {
-    return res.status(403).json({ message: 'Token expired or invalid' });
-  }
+  });
 };
-
-module.exports = authenticateToken;

@@ -10,6 +10,7 @@ import RiversidePage from './pages/RiversidePage'; // Assuming you have a Rivers
 import Reserve from './pages/Reserve'; // Assuming you have a Reserve component
 import Login from './pages/Login';
 import Register from './pages/Register'; // Assuming you have a Register component
+import AdminDashboard from './pages/AdminDashboard'; // adjust the path if needed
 import Footer from './Footer'; // If you have a Footer component
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
           <Route path="/Reserve" element={<Reserve />} />
           <Route path='/Login' element={<Login />} />
           <Route path="/Register" element={<Register />} />
+          <Route path="/admin/dashboard" element={<AdminDashboard />} />
         </Routes>
       </main>
       <Footer /> 

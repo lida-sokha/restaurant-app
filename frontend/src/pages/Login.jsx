@@ -58,7 +58,7 @@ export default function Login() {
         replace: true,
       });
     } else {
-      navigate('/', { replace: true });
+      navigate('/adminDashboard', { replace: true });
     }
 
   } catch (error) {

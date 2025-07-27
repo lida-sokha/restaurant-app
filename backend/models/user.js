@@ -1,4 +1,3 @@
-// models/User.js
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     user_id: {
@@ -29,6 +28,10 @@ module.exports = (sequelize, DataTypes) => {
     phone: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    is_admin: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false   // users are not admins by default
     },
     created_at: {
       type: DataTypes.DATE,
