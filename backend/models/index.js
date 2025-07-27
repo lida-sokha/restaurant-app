@@ -22,7 +22,9 @@ const sequelize = new Sequelize(
 
 // Import all models
 const Menu = require('./Menu')(sequelize, DataTypes);
-const User = require('./User')(sequelize, DataTypes); // Add this line
+const User = require('./user')(sequelize, DataTypes); 
+
+ // Add this line
 const Reservation = require('./reservation')(sequelize, DataTypes);
 // Test the DB connection immediately
 sequelize.authenticate()
