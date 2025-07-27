@@ -137,7 +137,16 @@ async function seedMenu() {
         category:'Appetizer & Salads',
         image_url:'/image/burrata-caprese.jpg',
         is_available: true,
-      }
+      },
+      {
+        name:'Tropical Seafood',
+        description:'Taste the tropics with every bite—our Tropical Seafood blends juicy citrus, herbs, and the freshest catch.',
+        price: 8.00,
+        category:'Pizza',
+        image_url:'/image/seafood pizza.jpg',
+        is_available:true,
+
+      },
     ];
 
     // 3. Insert the data
