@@ -58,7 +58,7 @@ const MenuItemCard = ({ item, quantity, onIncrement, onDecrement }) => {
             <button
               onClick={onDecrement}
               disabled={quantity === 0}
-              className={`px-2 py-5 rounded ${
+              className={`px-2 py-1 rounded ${
                 quantity === 0
                   ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
                   : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
