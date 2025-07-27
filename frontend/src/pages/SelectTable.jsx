@@ -8,7 +8,8 @@ const SelectTable = () => {
   const tables = Array.from({ length: 20 }, (_, i) => i + 1);
 
   const handleSelect = (tableNumber) => {
-    navigate(`/adminMenu?table=${tableNumber}`);
+    // Navigate to admin menu page with the table number as query param
+    navigate(`/admin/menu?table=${tableNumber}`);
   };
 
   return (

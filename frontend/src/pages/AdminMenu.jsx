@@ -224,7 +224,6 @@ export default function AdminMenu() {
   );
 }
 
-// PropTypes remain the same if you already defined them below (optional)
 MenuItemCard.propTypes = {
   item: PropTypes.shape({
     item_id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
