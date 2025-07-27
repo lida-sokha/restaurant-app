@@ -1,39 +1,50 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-// Import your components
-import Navbar from './Navbar'; // Adjust path if your Navbar is in a different folder
-import HomePage from './pages/Home'; // Assuming you have a HomePage component
-import MenuPage from './pages/Menu';     // IMPORTANT: This is your Menu.jsx component
-import TownSquarePage from './pages/TownSquarePage'; // Assuming you have a TownSquarePage component
-import RiversidePage from './pages/RiversidePage'; // Assuming you have a RiversidePage component
-import Reserve from './pages/Reserve'; // Assuming you have a Reserve component
+// Shared components
+import Navbar from './Navbar';
+import Footer from './Footer';
+
+// Public pages
+import HomePage from './pages/Home';
+import MenuPage from './pages/Menu';
+import TownSquarePage from './pages/TownSquarePage';
+import RiversidePage from './pages/RiversidePage';
+import Reserve from './pages/Reserve';
 import Login from './pages/Login';
-import Register from './pages/Register'; // Assuming you have a Register component
-import AdminDashboard from './pages/AdminDashboard'; // adjust the path if needed
-import Footer from './Footer'; // If you have a Footer component
+import Register from './pages/Register';
+
+// Admin pages
+import AdminDashboard from './pages/AdminDashboard';
+import SelectTable from './pages/SelectTable';
+import AdminMenu from './pages/AdminMenu';
+import Cart from './pages/Cart';
 
 function App() {
   return (
-    
     <Router>
-      {/* Navbar should be outside <Routes> if it's always visible */}
       <Navbar />
 
-      <main> {/* Wrap your page content, adjust styling as needed */}
+      <main>
         <Routes>
-          {/* Define your routes here */}
+          {/* Public routes */}
           <Route path="/" element={<HomePage />} />
-          <Route path="/Menu" element={<MenuPage />} /> {/* Match the path from Navbar */}
+          <Route path="/Menu" element={<MenuPage />} />
           <Route path="/branches/townsquare" element={<TownSquarePage />} />
           <Route path="/branches/riverside" element={<RiversidePage />} />
           <Route path="/Reserve" element={<Reserve />} />
-          <Route path='/Login' element={<Login />} />
+          <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
+
+          {/* Admin routes */}
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/select-table" element={<SelectTable />} />
+          <Route path="/admin/menu" element={<AdminMenu />} />
+          <Route path="/admin/cart" element={<Cart />} />
         </Routes>
       </main>
-      <Footer /> 
+
+      <Footer />
     </Router>
   );
 }
