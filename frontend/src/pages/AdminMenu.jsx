@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { CartContext } from '../Context/CartContext';
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://menu-app.up.railway.app';
@@ -115,7 +115,6 @@ const MenuSection = ({ categoryName, items, renderItem }) => (
 );
 
 export default function AdminMenu() {
-  const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const tableNumber = queryParams.get('table');
@@ -183,7 +182,7 @@ export default function AdminMenu() {
         }}
       />
     );
-  }, [cartItems, addToCart, updateQuantity]);
+  }, [cartItems]);
 
   const groupedMenu = useMemo(() => {
     return menuItems.reduce((acc, item) => {
@@ -194,37 +193,11 @@ export default function AdminMenu() {
     }, {});
   }, [menuItems]);
 
-  // Calculate total quantity in cart for badge
-  const totalCartQuantity = cartItems.reduce((sum, ci) => sum + ci.quantity, 0);
-
   if (loading && showLoading) return <LoadingSpinner />;
   if (error) return <ErrorMessage error={error} onRetry={fetchMenuItems} />;
 
   return (
-    <div className="min-h-screen bg-gray-100 py-10 pt-24 md:pt-32 relative">
-      {/* Cart icon button */}
-      <button
-        onClick={() => navigate('/admin/cart')}
-        aria-label="Go to cart"
-        className="fixed top-6 right-6 p-3 bg-blue-600 rounded-full shadow-lg hover:bg-blue-700 transition"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-6 w-6 text-white"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          strokeWidth={2}
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 7M7 13l-2 4h13M16 17a2 2 0 11-4 0 2 2 0 014 0z" />
-        </svg>
-        {totalCartQuantity > 0 && (
-          <span className="absolute -top-1 -right-1 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
-            {totalCartQuantity}
-          </span>
-        )}
-      </button>
-
+    <div className="min-h-screen bg-gray-100 py-10 pt-24 md:pt-32">
       <h1 className="text-5xl md:text-6xl font-bold text-center text-blue-800 mb-4">Admin Menu</h1>
 
       {tableNumber && (
