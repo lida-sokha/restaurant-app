@@ -13,20 +13,17 @@ export default function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e) => {
+const handleLogin = async (e) => {
   e.preventDefault();
   setError('');
   setLoading(true);
 
   try {
-    // Debug the payload being sent
-    console.log('Sending login request with:', { email, password });
-
     const response = await axios.post(
       'http://localhost:5000/api/login',
       { 
-        email: email.trim(),  // Trim whitespace
-        password: password    // Keep as is
+        email: email.trim(),
+        password: password
       },
       {
         headers: { 
@@ -38,57 +35,27 @@ export default function Login() {
       }
     );
 
-    // Debug the response
-    console.log('Login response:', response.data);
-
     if (!response.data.token) {
       throw new Error('Authentication failed - no token received');
     }
 
     localStorage.setItem('token', response.data.token);
-    
-    // Successful login handling
-    if (location.state?.fromReserve) {
-      navigate('/Reserve', {
-        state: {
-          fromAuth: true,
-          reservationSuccess: true,
-          reservationData: location.state.reservationData,
-        },
-        replace: true,
-      });
-    } else {
+
+    // Check if user is admin and navigate accordingly
+    if (response.data.user.is_admin) {
       navigate('/adminDashboard', { replace: true });
-    }
-
-  } catch (error) {
-    // Enhanced error handling
-    console.error('Login error details:', {
-      config: error.config,
-      response: error.response?.data,
-      status: error.response?.status,
-      message: error.message
-    });
-
-    let errorMessage = 'Login failed';
-    
-    if (error.response) {
-      // The request was made and the server responded
-      errorMessage = error.response.data?.message || 
-                   `Server error: ${error.response.status}`;
-    } else if (error.request) {
-      // The request was made but no response was received
-      errorMessage = 'No response from server - check your network';
     } else {
-      // Something happened in setting up the request
-      errorMessage = error.message;
+      navigate('/', { replace: true }); // normal user landing page
     }
-
-    setError(errorMessage);
+  } catch (error) {
+    // error handling (same as before)
+    console.error('Login error details:', error);
+    setError('Login failed: ' + (error.response?.data?.message || error.message));
   } finally {
     setLoading(false);
   }
 };
+
 
   return (
     <div className="relative h-screen w-full overflow-hidden">
