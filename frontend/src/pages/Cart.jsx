@@ -3,10 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { CartContext } from '../Context/CartContext';
 
 export default function Cart() {
-  const { cart, addToCart, removeFromCart, clearCart } = useContext(CartContext);
+  const { cartItems, addToCart, updateQuantity, clearCart } = useContext(CartContext);
   const navigate = useNavigate();
-
-  const cartItems = Object.values(cart);
 
   const totalPrice = cartItems.reduce((sum, { item, quantity }) => {
     const price = Number(item.price) || 0;
@@ -44,7 +42,8 @@ export default function Cart() {
             </div>
             <div className="flex items-center gap-2">
               <button
-                onClick={() => removeFromCart(item)}
+                onClick={() => updateQuantity(item, quantity - 1)}
+                disabled={quantity <= 1}
                 className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
                 aria-label={`Remove one ${item.name}`}
               >

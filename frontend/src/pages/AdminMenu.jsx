@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo, useContext } from 'react';
 import PropTypes from 'prop-types';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CartContext } from '../Context/CartContext';
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://menu-app.up.railway.app';
@@ -116,6 +116,7 @@ const MenuSection = ({ categoryName, items, renderItem }) => (
 
 export default function AdminMenu() {
   const location = useLocation();
+  const navigate = useNavigate();
   const queryParams = new URLSearchParams(location.search);
   const tableNumber = queryParams.get('table');
 
@@ -220,6 +221,27 @@ export default function AdminMenu() {
           <EmptyMenuState onRefresh={fetchMenuItems} />
         )}
       </div>
+
+      {/* Floating Cart Button */}
+      <button
+        onClick={() => navigate('/cart')}
+        className="fixed right-4 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white rounded-full p-4 shadow-lg hover:bg-blue-700 z-50"
+        aria-label="View Cart"
+      >
+        <div className="relative">
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2"
+            viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path strokeLinecap="round" strokeLinejoin="round"
+              d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.293 1.293a1 1 0 001.414 1.414L7 13zm10 0l1.293 1.293a1 1 0 01-1.414 1.414L17 13zM6 21h12a2 2 0 002-2H4a2 2 0 002 2z">
+            </path>
+          </svg>
+          {cartItems.length > 0 && (
+            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+              {cartItems.reduce((sum, item) => sum + item.quantity, 0)}
+            </span>
+          )}
+        </div>
+      </button>
     </div>
   );
 }
