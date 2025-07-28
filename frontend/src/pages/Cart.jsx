@@ -41,63 +41,100 @@ export default function Cart() {
     navigate('/order-success', { state: { order } }); // Navigate to order success page, passing order data
   };
 
-  return (
-    <div className="max-w-3xl mx-auto p-6">
-      <h1 className="text-4xl font-bold mb-6">Your Cart</h1>
-      <ul className="space-y-4">
-        {cartItems.map((item) => (
-          <li
-            key={item.item_id || item.id || item.name}
-            className="flex justify-between items-center border p-4 rounded"
-          >
-            <div>
-              <h2 className="font-semibold text-lg">{item.name}</h2>
-              <p>Price: ${Number(item.price).toFixed(2)}</p>
-              <p>Quantity: {item.quantity}</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => updateQuantity(item, item.quantity - 1)}
-                disabled={item.quantity <= 1}
-                className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600"
-                aria-label={`Remove one ${item.name}`}
-              >
-                -
-              </button>
-              <button
-                onClick={() => addToCart(item)}
-                className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600"
-                aria-label={`Add one ${item.name}`}
-              >
-                +
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
-      <div className="mt-6 text-right font-bold text-xl">
-        Total: ${totalPrice.toFixed(2)}
-      </div>
-      <div className="flex justify-between mt-6 gap-4">
-        <button
-          onClick={() => navigate('/admin/menu')}
-          className="px-6 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
-        >
-          Back to Menu
-        </button>
-        <button
-          onClick={clearCart}
-          className="px-6 py-2 bg-red-600 text-white rounded hover:bg-red-700"
-        >
-          Clear Cart
-        </button>
-        <button
-          onClick={orderNow}
-          className="px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700"
-        >
-          Order Now
-        </button>
-      </div>
+return (
+  <div className="min-h-screen bg-gray-50 pt-20">
+  <div className="p-4 sm:p-6 pt-40">
+    {/* Cart Header */}
+    <div className="flex items-center justify-between mb-8">
+      <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 ">Your Order</h1>
+      <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
+        {cartItems.length} {cartItems.length === 1 ? 'item' : 'items'}
+      </span>
     </div>
-  );
+
+    {/* Cart Items */}
+    <div className="bg-white rounded-xl shadow-sm overflow-hidden mb-8">
+      {cartItems.length === 0 ? (
+        <div className="p-8 text-center">
+          <p className="text-gray-500 mb-4">Your cart is empty</p>
+          <button
+            onClick={() => navigate('/admin/menu')}
+            className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Browse Menu
+          </button>
+        </div>
+      ) : (
+        <>
+          <ul className="divide-y divide-gray-100">
+            {cartItems.map((item) => (
+              <li key={item.id} className="p-4 hover:bg-gray-50 transition-colors">
+                <div className="flex justify-between items-start">
+                  <div className="flex-1">
+                    <h3 className="font-medium text-gray-900">{item.name}</h3>
+                    <div className="mt-1 flex flex-wrap gap-x-4 text-sm text-gray-600">
+                      <p>${Number(item.price).toFixed(2)} each</p>
+                      <p>Subtotal: ${(item.price * item.quantity).toFixed(2)}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 ml-4">
+                    <button
+                      onClick={() => updateQuantity(item, item.quantity - 1)}
+                      disabled={item.quantity <= 1}
+                      className={`w-8 h-8 flex items-center justify-center rounded-full ${
+                        item.quantity <= 1 ? 'bg-gray-100 text-gray-400' : 'bg-red-100 text-red-600 hover:bg-red-200'
+                      }`}
+                      aria-label={`Remove one ${item.name}`}
+                    >
+                      -
+                    </button>
+                    <span className="w-8 text-center">{item.quantity}</span>
+                    <button
+                      onClick={() => addToCart(item)}
+                      className="w-8 h-8 flex items-center justify-center bg-green-100 text-green-600 rounded-full hover:bg-green-200"
+                      aria-label={`Add one ${item.name}`}
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          {/* Order Summary */}
+          <div className="bg-gray-50 p-4 border-t border-gray-200">
+            <div className="flex justify-between items-center">
+              <span className="font-medium text-gray-700">Total:</span>
+              <span className="font-bold text-lg text-gray-900">${totalPrice.toFixed(2)}</span>
+            </div>
+          </div>
+        </>
+      )}
+    </div>
+
+    {/* Action Buttons */}
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+      <button
+        onClick={() => navigate('/admin/menu')}
+        className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg hover:bg-gray-300 transition-colors"
+      >
+        Continue Shopping
+      </button>
+      <button
+        onClick={clearCart}
+        className="px-4 py-2 bg-red-100 text-red-800 rounded-lg hover:bg-red-200 transition-colors"
+      >
+        Clear Cart
+      </button>
+      <button
+        onClick={orderNow}
+        className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium"
+      >
+        Checkout
+      </button>
+    </div>
+  </div>
+  </div>
+);
 }

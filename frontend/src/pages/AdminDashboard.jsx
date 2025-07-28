@@ -24,54 +24,34 @@ export default function AdminDashboard() {
   }, []);
 
   return (
-    <div className="max-w-lg mx-auto mt-16 p-8 bg-white rounded-lg shadow-lg">
-      <h1 className="text-3xl font-extrabold text-gray-900 mb-6 border-b pb-3">
-        Admin Dashboard
-      </h1>
-
-      {message && (
-        <p className="mb-6 px-4 py-3 bg-green-100 border border-green-400 text-green-700 rounded shadow-sm">
-          {message}
+  <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-6">
+    <div className="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
+      <div className="mb-6">
+        <p className="bg-green-100 text-green-800 border border-green-300 rounded-md px-4 py-3">
+          Welcome Admin, this is the dashboard
         </p>
-      )}
-      {error && (
-        <p className="mb-6 px-4 py-3 bg-red-100 border border-red-400 text-red-700 rounded shadow-sm">
-          {error}
-        </p>
-      )}
+      </div>
 
-      <section>
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
-          Quick Links
-        </h2>
+      <h2 className="text-2xl font-semibold text-gray-900 mb-6">Quick Links</h2>
 
-        <ul className="space-y-4">
-          <li>
+      <ul className="space-y-4">
+        {[
+          { to: '/admin/select-table', label: 'Select Table' },
+          { to: '/admin/menu', label: 'Admin Menu' },
+          { to: '/admin/cart', label: 'Cart' },
+        ].map(({ to, label }) => (
+          <li key={to}>
             <Link
-              to="/admin/select-table"
-              className="block px-5 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition"
+              to={to}
+              className="block w-full text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg py-3 transition duration-300 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              Select Table
+              {label}
             </Link>
           </li>
-          <li>
-            <Link
-              to="/admin/menu"
-              className="block px-5 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition"
-            >
-              Admin Menu
-            </Link>
-          </li>
-          <li>
-            <Link
-              to="/admin/cart"
-              className="block px-5 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition"
-            >
-              Cart
-            </Link>
-          </li>
-        </ul>
-      </section>
+        ))}
+      </ul>
     </div>
-  );
+  </div>
+);
+
 }
