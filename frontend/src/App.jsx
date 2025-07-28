@@ -13,6 +13,7 @@ import RiversidePage from './pages/RiversidePage';
 import Reserve from './pages/Reserve';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import About from './pages/About';
 
 // Admin pages
 import AdminDashboard from './pages/AdminDashboard';
@@ -35,6 +36,7 @@ function App() {
           <Route path="/Reserve" element={<Reserve />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
+          <Route path="/About" element={<About />} />
 
           {/* Admin routes */}
           <Route path="/admin/dashboard" element={<AdminDashboard />} />

@@ -10,7 +10,7 @@ const Navbar = () => {
     { name: 'Home', path: '/' },
     { name: 'Menu', path: '/menu' },
     { name: 'Reservation', path: '/Reserve' },
-    { name: 'About us', path: '/about' },
+    { name: 'About us', path: '/About' },
   ];
 
   // --- Dynamic Background Color ---

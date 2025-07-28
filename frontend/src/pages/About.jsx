@@ -9,16 +9,13 @@ export default function About() {
     <div className="bg-[#fffaf5] text-gray-800 font-sans">
       
       {/* About Us Banner */}
-      <section className="text-center py-16 bg-[#f5f9f3]">
+      <section className="text-center py-20 bg-[#f5f9f3]">
         <h1 className="text-4xl font-bold mb-4">About Us</h1>
-        <p className="max-w-xl mx-auto text-gray-600">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
-        </p>
       </section>
 
       {/* Home Sweet Bakery Section */}
       <section className="grid md:grid-cols-2 gap-8 py-16 px-6 md:px-16 items-center">
-        <img src="/image/steak.jpg" alt="Beef Salad" className="rounded-xl shadow-md" />
+        <img src="/image/pizza_branch.jpg" alt="Beef Salad" className="rounded-xl shadow-md" />
         <div className="bg-white p-8 rounded-xl shadow-md">
           <h2 className="text-3xl font-semibold mb-4">Golden Corral</h2>
           <p className="text-gray-600 mb-4">
@@ -56,7 +53,7 @@ export default function About() {
           </button>
         </div>
         <div className="md:w-1/2 flex justify-center">
-          <img src="/images/hawwai.jpg" alt="Fresh Bread" />
+          <img src="/image/Homemade Tiramisu.jpg" alt="Fresh Bread" />
         </div>
       </section>
 
@@ -83,7 +80,6 @@ export default function About() {
           ))}
         </div>
 
-        <img src="/images/lava.jpg" alt="Round Bread" className="mx-auto w-40" />
       </section>
     </div>
   );
