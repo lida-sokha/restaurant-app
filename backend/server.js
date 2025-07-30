@@ -7,6 +7,7 @@ const menuRouter = require('./routes/menuRoutes');
 const authRoutes = require('./routes/authRoutes');
 const reservationRoutes = require('./routes/reservationRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -27,6 +28,7 @@ app.use('/api', authRoutes); // use auth routes
 
 app.use('/api/reservations', reservationRoutes); // use reservation routes
 app.use('/api/admin', adminRoutes);
+app.use('/api/orders', orderRoutes); // use order routes
 app.use(cookieParser());
 
 // ==================== Sequelize Setup ====================

@@ -1,10 +1,14 @@
 import React, { useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { CartContext } from '../Context/CartContext';
 
 export default function Cart() {
   const { cartItems, addToCart, updateQuantity, clearCart } = useContext(CartContext);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const searchParams = new URLSearchParams(location.search);
+  const tableNumber = searchParams.get('table'); 
 
   const totalPrice = cartItems.reduce((sum, item) => {
     const price = Number(item.price) || 0;
@@ -27,19 +31,49 @@ export default function Cart() {
   }
 
   // Handler for order now button
-  const orderNow = () => {
-    const order = {
-      items: cartItems.map(item => ({
-        name: item.name,
-        quantity: item.quantity,
-        price: Number(item.price) || 0,
-      })),
-      totalPrice,
+const orderNow = async () => {
+  // prepare order object
+  const order = {
+    tableNumber,
+    items: cartItems.map(item => ({
+      name: item.name,
+      quantity: item.quantity,
+      price: Number(item.price) || 0,
+    })),
+    totalPrice,
+  };
+
+  try {
+    // send order to backend
+    const response = await fetch('http://localhost:5000/api/orders', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(order),
+    });
+
+    if (!response.ok) throw new Error('Failed to place order');
+
+    const savedOrderResponse = await response.json();
+
+    clearCart();
+
+    // Normalize keys from snake_case to camelCase
+    const orderFromBackend = savedOrderResponse.order;
+    const normalizedOrder = {
+      ...orderFromBackend,
+      tableNumber: orderFromBackend.table_number,
+      totalPrice: orderFromBackend.total_price,
+      items: orderFromBackend.items || [],
     };
 
-    clearCart(); // Clear the cart on ordering
-    navigate('/order-success', { state: { order } }); // Navigate to order success page, passing order data
-  };
+    // Navigate and pass the normalized order object
+    navigate('/order-success', { state: { order: normalizedOrder } });
+  } catch (error) {
+    console.error('Error placing order:', error);
+    alert('Failed to place order. Please try again.');
+  }
+};
+
 
 return (
   <div className="min-h-screen bg-gray-50 pt-20">
@@ -47,6 +81,10 @@ return (
     {/* Cart Header */}
     <div className="flex items-center justify-between mb-8">
       <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 ">Your Order</h1>
+      <div className="mb-4 text-lg font-semibold text-gray-700">
+  Table Number: {tableNumber ?? 'Not selected'}
+  </div>
+
       <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm">
         {cartItems.length} {cartItems.length === 1 ? 'item' : 'items'}
       </span>

@@ -20,7 +20,8 @@ import AdminDashboard from './pages/AdminDashboard';
 import SelectTable from './pages/SelectTable';
 import AdminMenu from './pages/AdminMenu';
 import Cart from './pages/Cart';
-
+import OrderSuccess from './pages/Order-success'; 
+import AdminReservations from './pages/AdminReservations';
 function App() {
   return (
     <Router>
@@ -43,6 +44,10 @@ function App() {
           <Route path="/admin/select-table" element={<SelectTable />} />
           <Route path="/admin/menu" element={<AdminMenu />} />
           <Route path="/admin/cart" element={<Cart />} />
+          <Route path="/order-success" element={<OrderSuccess />} />
+          <Route path="/admin/reservations" element={<AdminReservations />} />
+
+          {/* Catch-all route */}
         </Routes>
       </main>
 

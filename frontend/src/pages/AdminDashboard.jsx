@@ -50,6 +50,14 @@ export default function AdminDashboard() {
           </li>
         ))}
       </ul>
+      <div className="mt-8">
+          <Link
+            to="/admin/reservations"
+            className="block w-full text-center bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg py-3 transition duration-300 shadow-md focus:outline-none focus:ring-2 focus:ring-green-500"
+          >
+            Reservations
+          </Link>
+        </div>
     </div>
   </div>
 );

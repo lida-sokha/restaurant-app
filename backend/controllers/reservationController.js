@@ -42,6 +42,19 @@ const createReservation = async (req, res) => {
   }
 };
 
+
+const getAllReservations = async (req, res) => {
+  try {
+    const reservations = await Reservation.findAll();
+    res.status(200).json(reservations);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Failed to fetch reservations' });
+  }
+};
+
 module.exports = {
   createReservation,
+  getAllReservations,
 };
+

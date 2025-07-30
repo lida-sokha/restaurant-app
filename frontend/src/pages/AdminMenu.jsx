@@ -224,7 +224,7 @@ export default function AdminMenu() {
 
       {/* Floating Cart Button */}
       <button
-        onClick={() => navigate('/admin/cart')}
+        onClick={() => navigate(`/admin/cart?table=${tableNumber}`)}
         className="fixed right-4 top-1/2 transform -translate-y-1/2 bg-blue-600 text-white rounded-full p-4 shadow-lg hover:bg-blue-700 z-50"
         aria-label="View Cart"
       >
